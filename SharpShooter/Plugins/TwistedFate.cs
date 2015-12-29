@@ -58,10 +58,10 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddUseInterrupter();
             MenuProvider.Champion.Misc.AddItem("Select Gold Card When Using Ultimate (gate)", true);
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw Flash+AA Range",
                 new Circle(true, Color.FromArgb(100, Color.Gold)));
             MenuProvider.Champion.Drawings.AddDamageIndicator(GetComboDamage);

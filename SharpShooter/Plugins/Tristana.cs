@@ -44,7 +44,7 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddUseInterrupter();
             MenuProvider.Champion.Misc.AddItem("Auto E on Turret", true);
 
-            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw E Killable", new Circle(true, Color.GreenYellow));

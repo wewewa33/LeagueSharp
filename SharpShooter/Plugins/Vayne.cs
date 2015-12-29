@@ -40,8 +40,8 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddItem("Q Stealth duration (ms)", new Slider(1000, 0, 1000));
             MenuProvider.Champion.Misc.AddItem("Use Anti-Melee (Q)", true);
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw E Crash Prediction", new Circle(true, Color.YellowGreen));
             MenuProvider.Champion.Drawings.AddDamageIndicator(GetComboDamage);
 

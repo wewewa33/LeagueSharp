@@ -48,10 +48,10 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddUseAntiGapcloser();
             MenuProvider.Champion.Misc.AddItem("Use Anti-Melee (E)", true);
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
-            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDamageIndicator(GetComboDamage);
 
             Game.OnUpdate += Game_OnUpdate;

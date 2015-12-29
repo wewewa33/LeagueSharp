@@ -42,8 +42,8 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddUseAntiGapcloser();
             MenuProvider.Champion.Misc.AddUseInterrupter();
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw Q Target Mark",
                 new Circle(true, Color.FromArgb(100, Color.DeepSkyBlue)));
             MenuProvider.Champion.Drawings.AddItem("Draw Whitelisted Target Mark", new Circle(true, Color.White));

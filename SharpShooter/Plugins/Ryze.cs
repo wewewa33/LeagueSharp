@@ -56,8 +56,8 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddItem("Auto Keep Passive Stacks", new KeyBind('T', KeyBindType.Toggle, true));
             MenuProvider.Champion.Misc.AddItem("^ Min Mana", new Slider(70, 0, 100));
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawWrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw The Number of Passive Stacks", true);
             MenuProvider.Champion.Drawings.AddItem("Draw Remaining Time of Charged Passive", true);

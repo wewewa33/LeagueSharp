@@ -55,8 +55,8 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddItem("Auto Catch Axe", true);
             MenuProvider.Champion.Misc.AddItem("Axe Catch Range", new Slider(600, 0, 2000));
 
-            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw Catch Axe Range", new Circle(true, Color.FromArgb(100, Color.YellowGreen)));
             MenuProvider.Champion.Drawings.AddItem("Draw Axe Drop Objects", true);
             MenuProvider.Champion.Drawings.AddDamageIndicator(GetComboDamage);

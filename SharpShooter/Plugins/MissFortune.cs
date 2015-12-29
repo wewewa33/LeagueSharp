@@ -52,9 +52,9 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddItem("Block Movement order While Using R", true);
             MenuProvider.Champion.Misc.AddItem("Cancel R", new KeyBind('R', KeyBindType.Press));
 
-            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), true);
-            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), true);
+            MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
+            MenuProvider.Champion.Drawings.AddDrawRrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddItem("Draw R Killable", new Circle(true, Color.GreenYellow));
             MenuProvider.Champion.Drawings.AddItem("Draw Q Cone",
                 new Circle(true, Color.FromArgb(150, Color.GreenYellow)));
