@@ -50,7 +50,7 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Misc.AddItem("Harass Q2 Only if Kills Unit", false);
             MenuProvider.Champion.Misc.AddItem("Making new AutoAttack Target for Passive (LoveTap)", true);
             MenuProvider.Champion.Misc.AddItem("Block Movement order While Using R", true);
-            MenuProvider.Champion.Misc.AddItem("Cancel R", new KeyBind('R', KeyBindType.Press));
+            MenuProvider.Champion.Misc.AddItem("Cancel R", new KeyBind('T', KeyBindType.Press));
 
             MenuProvider.Champion.Drawings.AddDrawQrange(Color.FromArgb(100, Color.DeepSkyBlue), false);
             MenuProvider.Champion.Drawings.AddDrawErange(Color.FromArgb(100, Color.DeepSkyBlue), false);
@@ -83,44 +83,15 @@ namespace SharpShooter.Plugins
                     switch (MenuProvider.Orbwalker.ActiveMode)
                     {
                         case Orbwalking.OrbwalkingMode.Combo:
-                        {
-                            if (_q.IsReadyPerfectly())
                             {
-                                if (MenuProvider.Champion.Combo.GetBoolValue("Use Q2"))
-                                {
-                                    Q2Logic();
-                                }
-
-                                if (MenuProvider.Champion.Combo.UseQ)
-                                {
-                                    var shortRangeTarget = TargetSelector.GetTarget(_q.Range, _q.DamageType);
-
-                                    if (shortRangeTarget != null)
-                                        _q.CastOnUnit(shortRangeTarget);
-                                }
-                            }
-
-                            if (MenuProvider.Champion.Combo.UseE)
-                                if (_e.IsReadyPerfectly())
-                                {
-                                    var target = TargetSelector.GetTarget(_e.Range, _e.DamageType);
-                                    if (target != null)
-                                        _e.Cast(target, false, true);
-                                }
-
-                            break;
-                        }
-                        case Orbwalking.OrbwalkingMode.Mixed:
-                        {
-                            if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
                                 if (_q.IsReadyPerfectly())
                                 {
-                                    if (MenuProvider.Champion.Harass.GetBoolValue("Use Q2"))
+                                    if (MenuProvider.Champion.Combo.GetBoolValue("Use Q2"))
                                     {
                                         Q2Logic();
                                     }
 
-                                    if (MenuProvider.Champion.Harass.UseQ)
+                                    if (MenuProvider.Champion.Combo.UseQ)
                                     {
                                         var shortRangeTarget = TargetSelector.GetTarget(_q.Range, _q.DamageType);
 
@@ -129,52 +100,81 @@ namespace SharpShooter.Plugins
                                     }
                                 }
 
-                            if (MenuProvider.Champion.Harass.UseE)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                                if (MenuProvider.Champion.Combo.UseE)
                                     if (_e.IsReadyPerfectly())
                                     {
                                         var target = TargetSelector.GetTarget(_e.Range, _e.DamageType);
                                         if (target != null)
                                             _e.Cast(target, false, true);
                                     }
-                            break;
-                        }
-                        case Orbwalking.OrbwalkingMode.LaneClear:
-                        {
-                            //Laneclear
-                            if (MenuProvider.Champion.Laneclear.UseE)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Laneclear.IfMana))
-                                    if (_e.IsReadyPerfectly())
-                                    {
-                                        var farmLocation = _e.GetCircularFarmLocation(MinionManager.GetMinions(_e.Range));
-                                        if (farmLocation.MinionsHit >= 4)
-                                            _e.Cast(farmLocation.Position);
-                                    }
 
-                            //Jungleclear
-                            if (MenuProvider.Champion.Jungleclear.UseQ)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
+                                break;
+                            }
+                        case Orbwalking.OrbwalkingMode.Mixed:
+                            {
+                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
                                     if (_q.IsReadyPerfectly())
                                     {
-                                        var target =
-                                            MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
-                                                MinionOrderTypes.MaxHealth).FirstOrDefault(x => x.IsValidTarget(600));
-                                        if (target != null)
-                                            _q.Cast(target);
+                                        if (MenuProvider.Champion.Harass.GetBoolValue("Use Q2"))
+                                        {
+                                            Q2Logic();
+                                        }
+
+                                        if (MenuProvider.Champion.Harass.UseQ)
+                                        {
+                                            var shortRangeTarget = TargetSelector.GetTarget(_q.Range, _q.DamageType);
+
+                                            if (shortRangeTarget != null)
+                                                _q.CastOnUnit(shortRangeTarget);
+                                        }
                                     }
 
-                            if (MenuProvider.Champion.Jungleclear.UseE)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
-                                    if (_e.IsReadyPerfectly())
-                                    {
-                                        var target =
-                                            MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
-                                                MinionOrderTypes.MaxHealth).FirstOrDefault(x => x.IsValidTarget(600));
-                                        if (target != null)
-                                            _e.Cast(target);
-                                    }
-                            break;
-                        }
+                                if (MenuProvider.Champion.Harass.UseE)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                                        if (_e.IsReadyPerfectly())
+                                        {
+                                            var target = TargetSelector.GetTarget(_e.Range, _e.DamageType);
+                                            if (target != null)
+                                                _e.Cast(target, false, true);
+                                        }
+                                break;
+                            }
+                        case Orbwalking.OrbwalkingMode.LaneClear:
+                            {
+                                //Laneclear
+                                if (MenuProvider.Champion.Laneclear.UseE)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Laneclear.IfMana))
+                                        if (_e.IsReadyPerfectly())
+                                        {
+                                            var farmLocation = _e.GetCircularFarmLocation(MinionManager.GetMinions(_e.Range));
+                                            if (farmLocation.MinionsHit >= 4)
+                                                _e.Cast(farmLocation.Position);
+                                        }
+
+                                //Jungleclear
+                                if (MenuProvider.Champion.Jungleclear.UseQ)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
+                                        if (_q.IsReadyPerfectly())
+                                        {
+                                            var target =
+                                                MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
+                                                    MinionOrderTypes.MaxHealth).FirstOrDefault(x => x.IsValidTarget(600));
+                                            if (target != null)
+                                                _q.Cast(target);
+                                        }
+
+                                if (MenuProvider.Champion.Jungleclear.UseE)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
+                                        if (_e.IsReadyPerfectly())
+                                        {
+                                            var target =
+                                                MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
+                                                    MinionOrderTypes.MaxHealth).FirstOrDefault(x => x.IsValidTarget(600));
+                                            if (target != null)
+                                                _e.Cast(target);
+                                        }
+                                break;
+                            }
                     }
 
                     if (MenuProvider.Champion.Harass.AutoHarass)
@@ -240,7 +240,7 @@ namespace SharpShooter.Plugins
                     if (args.Target.Type == GameObjectType.obj_AI_Hero)
                     {
                         if (args.Target.Health + args.Target.PhysicalShield >
-                            ObjectManager.Player.GetAutoAttackDamage(args.Target as Obj_AI_Base, true)*2)
+                            ObjectManager.Player.GetAutoAttackDamage(args.Target as Obj_AI_Base, true) * 2)
                         {
                             if (args.Target.NetworkId == _loveTapTargetNetworkId)
                             {
@@ -356,11 +356,11 @@ namespace SharpShooter.Plugins
                     {
                         var targetPos = Drawing.WorldToScreen(target.Position);
                         var rDamage = _r.GetDamage(target);
-                        var rWave = 10 + 2*_r.Level;
+                        var rWave = 10 + 2 * _r.Level;
 
                         for (var i = 1; i < rWave; i++)
                         {
-                            if (target.Health + target.PhysicalShield + target.HPRegenRate < rDamage*i)
+                            if (target.Health + target.PhysicalShield + target.HPRegenRate < rDamage * i)
                             {
                                 Render.Circle.DrawCircle(target.Position, target.BoundingRadius, drawRKillable.Color);
                                 Drawing.DrawText(targetPos.X, targetPos.Y - 20, drawRKillable.Color,
@@ -383,10 +383,10 @@ namespace SharpShooter.Plugins
                     foreach (var target in targets)
                     {
                         var direction = target.ServerPosition.Extend(ObjectManager.Player.ServerPosition, -500);
-                        var radian = (float) Math.PI/180f;
+                        var radian = (float)Math.PI / 180f;
                         var targetPosition = target.Position;
 
-                        new Geometry.Polygon.Sector(targetPosition, direction, 40f*radian, 450f).Draw(drawQCone.Color);
+                        new Geometry.Polygon.Sector(targetPosition, direction, 40f * radian, 450f).Draw(drawQCone.Color);
                     }
                 }
 
@@ -406,7 +406,7 @@ namespace SharpShooter.Plugins
 
             if (!ObjectManager.Player.IsWindingUp)
             {
-                damage += (float) ObjectManager.Player.GetAutoAttackDamage(enemy, true);
+                damage += (float)ObjectManager.Player.GetAutoAttackDamage(enemy, true);
             }
 
             if (_q.IsReadyPerfectly())
@@ -421,7 +421,7 @@ namespace SharpShooter.Plugins
 
             if (_r.IsReadyPerfectly())
             {
-                damage += _r.GetDamage(enemy)*(10 + 2*_r.Level);
+                damage += _r.GetDamage(enemy) * (10 + 2 * _r.Level);
             }
 
             return damage;
@@ -465,13 +465,13 @@ namespace SharpShooter.Plugins
                                 : targets)
                     {
                         var direction = target.ServerPosition.Extend(ObjectManager.Player.ServerPosition, -500);
-                        var radian = (float) Math.PI/180f;
+                        var radian = (float)Math.PI / 180f;
                         var targetServerPosition = target.ServerPosition;
-                        var time = ObjectManager.Player.ServerPosition.Distance(target.ServerPosition)/_q.Speed +
+                        var time = ObjectManager.Player.ServerPosition.Distance(target.ServerPosition) / _q.Speed +
                                    _q.Delay;
                         var predic = Prediction.GetPrediction(longRangeTarget, time);
 
-                        var cone40 = new Geometry.Polygon.Sector(targetServerPosition, direction, 40f*radian, 450f);
+                        var cone40 = new Geometry.Polygon.Sector(targetServerPosition, direction, 40f * radian, 450f);
 
                         if (cone40.IsInside(longRangeTarget.ServerPosition))
                         {
