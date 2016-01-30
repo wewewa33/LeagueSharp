@@ -35,6 +35,7 @@ namespace SharpShooter.Plugins
             MenuProvider.Champion.Combo.AddUseQ();
             MenuProvider.Champion.Combo.AddUseW();
             MenuProvider.Champion.Combo.AddUseE();
+            MenuProvider.Champion.Combo.AddItem("Min Mana % to use E", new Slider(20, 0, 100));
             MenuProvider.Champion.Combo.AddUseR();
 
             MenuProvider.Champion.Harass.AddUseQ();
@@ -153,7 +154,7 @@ namespace SharpShooter.Plugins
                                             if (HeroManager.Enemies.Any(x => x.IsValid && Orbwalking.InAutoAttackRange(x)))
                                                 _w.Cast();
 
-                                if (MenuProvider.Champion.Combo.UseE)
+                                if (MenuProvider.Champion.Combo.UseE && ObjectManager.Player.ManaPercent >= MenuProvider.Champion.Combo.GetSliderValue("Min Mana % to use E").Value)
                                     if (_e.IsReadyPerfectly())
                                     {
                                         var target = TargetSelector.GetTarget(_e.Range, _e.DamageType);
