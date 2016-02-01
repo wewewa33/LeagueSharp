@@ -71,7 +71,7 @@ namespace SharpShooter.Plugins
         private void Game_OnUpdate(EventArgs args)
         {
             if (!ObjectManager.Player.IsDead)
-                if (Orbwalking.CanMove(100))
+                if (Orbwalking.CanMove(1))
                 {
                     switch (MenuProvider.Orbwalker.ActiveMode)
                     {
