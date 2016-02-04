@@ -100,6 +100,7 @@ namespace SharpShooter.Plugins
                                         var minion =
                                             MinionManager.GetMinions(Orbwalking.GetRealAutoAttackRange(null) + 65,
                                                 MinionTypes.All, MinionTeam.NotAlly)
+                                                .Where(x => x.IsValidTarget())
                                                 .OrderBy(x => x.Distance(ObjectManager.Player))
                                                 .FirstOrDefault();
                                         if (minion != null)
