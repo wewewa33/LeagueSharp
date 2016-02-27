@@ -19,7 +19,7 @@ namespace SharpShooter.Plugins
         {
             _flash = ObjectManager.Player.GetSpellSlot("SummonerFlash");
 
-            _q = new Spell(SpellSlot.Q, 1450f, TargetSelector.DamageType.Magical) {MinHitChance = HitChance.VeryHigh};
+            _q = new Spell(SpellSlot.Q, 1450f, TargetSelector.DamageType.Magical) { MinHitChance = HitChance.VeryHigh };
             _w = new Spell(SpellSlot.W, 1200f, TargetSelector.DamageType.Magical);
             _e = new Spell(SpellSlot.E);
             _r = new Spell(SpellSlot.R, 5500f);
@@ -89,165 +89,165 @@ namespace SharpShooter.Plugins
                     switch (MenuProvider.Orbwalker.ActiveMode)
                     {
                         case Orbwalking.OrbwalkingMode.Combo:
-                        {
-                            if (MenuProvider.Champion.Combo.UseQ)
-                                if (_q.IsReadyPerfectly())
-                                {
-                                    if (ObjectManager.Player.Mana - _q.ManaCost > _w.ManaCost)
-                                    {
-                                        if (!MenuProvider.Champion.Combo.GetBoolValue("Cast Q On Immobile Target Only"))
-                                        {
-                                            var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
-                                            if (target != null)
-                                            {
-                                                _q.Cast(target, false, true);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            var target =
-                                                HeroManager.Enemies.Where(
-                                                    x =>
-                                                        x.IsValidTarget(_q.Range) &&
-                                                        _q.GetPrediction(x).Hitchance >= HitChance.Immobile)
-                                                    .OrderByDescending(x => TargetSelector.GetPriority(x))
-                                                    .FirstOrDefault();
-                                            if (target != null)
-                                            {
-                                                _q.Cast(target, false, true);
-                                            }
-                                        }
-                                    }
-                                }
-
-                            if (MenuProvider.Champion.Combo.UseW)
-                                if (_w.IsReadyPerfectly())
-                                {
-                                    var target = TargetSelector.GetTarget(_w.Range, _w.DamageType);
-
-                                    if (target != null)
-                                    {
-                                        if (MenuProvider.Champion.Combo.GetBoolValue("Use Blue Card if Mana is Low")
-                                            ? ObjectManager.Player.Mana - _w.ManaCost < _q.ManaCost + _w.ManaCost
-                                            : false)
-                                        {
-                                            PickACard(Cards.Blue);
-                                        }
-                                        else
-                                        {
-                                            PickACard(Cards.Gold);
-                                        }
-                                    }
-                                }
-                            break;
-                        }
-                        case Orbwalking.OrbwalkingMode.Mixed:
-                        {
-                            if (MenuProvider.Champion.Harass.UseQ)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                            {
+                                if (MenuProvider.Champion.Combo.UseQ)
                                     if (_q.IsReadyPerfectly())
                                     {
-                                        var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
-
-                                        if (target != null)
+                                        if (ObjectManager.Player.Mana - _q.ManaCost > _w.ManaCost)
                                         {
-                                            _q.Cast(target, false, true);
+                                            if (!MenuProvider.Champion.Combo.GetBoolValue("Cast Q On Immobile Target Only"))
+                                            {
+                                                var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
+                                                if (target != null)
+                                                {
+                                                    _q.Cast(target, false, true);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                var target =
+                                                    HeroManager.Enemies.Where(
+                                                        x =>
+                                                            x.IsValidTarget(_q.Range) &&
+                                                            _q.GetPrediction(x).Hitchance >= HitChance.Immobile)
+                                                        .OrderByDescending(x => TargetSelector.GetPriority(x))
+                                                        .FirstOrDefault();
+                                                if (target != null)
+                                                {
+                                                    _q.Cast(target, false, true);
+                                                }
+                                            }
                                         }
                                     }
 
-                            if (MenuProvider.Champion.Harass.UseW)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                                if (MenuProvider.Champion.Combo.UseW)
                                     if (_w.IsReadyPerfectly())
                                     {
                                         var target = TargetSelector.GetTarget(_w.Range, _w.DamageType);
 
                                         if (target != null)
                                         {
-                                            PickACard(Cards.Blue);
+                                            if (MenuProvider.Champion.Combo.GetBoolValue("Use Blue Card if Mana is Low")
+                                                ? ObjectManager.Player.Mana - _w.ManaCost < _q.ManaCost + _w.ManaCost
+                                                : false)
+                                            {
+                                                PickACard(Cards.Blue);
+                                            }
+                                            else
+                                            {
+                                                PickACard(Cards.Gold);
+                                            }
                                         }
                                     }
-                            break;
-                        }
+                                break;
+                            }
+                        case Orbwalking.OrbwalkingMode.Mixed:
+                            {
+                                if (MenuProvider.Champion.Harass.UseQ)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                                        if (_q.IsReadyPerfectly())
+                                        {
+                                            var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
+
+                                            if (target != null)
+                                            {
+                                                _q.Cast(target, false, true);
+                                            }
+                                        }
+
+                                if (MenuProvider.Champion.Harass.UseW)
+                                    if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Harass.IfMana))
+                                        if (_w.IsReadyPerfectly())
+                                        {
+                                            var target = TargetSelector.GetTarget(_w.Range, _w.DamageType);
+
+                                            if (target != null)
+                                            {
+                                                PickACard(Cards.Blue);
+                                            }
+                                        }
+                                break;
+                            }
                         case Orbwalking.OrbwalkingMode.LaneClear:
-                        {
-                            //Laneclear
-                            if (MenuProvider.Champion.Laneclear.UseQ)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Laneclear.IfMana))
-                                    if (_q.IsReadyPerfectly())
-                                    {
-                                        var farm = _q.GetLineFarmLocation(MinionManager.GetMinions(_q.Range));
-
-                                        if (farm.MinionsHit >= 5)
-                                        {
-                                            _q.Cast(farm.Position);
-                                        }
-                                    }
-
-                            if (MenuProvider.Champion.Laneclear.UseW)
-                                if (_w.IsReadyPerfectly())
-                                {
-                                    var minioncount =
-                                        MinionManager.GetMinions(float.MaxValue)
-                                            .Where(x => Orbwalking.InAutoAttackRange(x))
-                                            .Count();
-
+                            {
+                                //Laneclear
+                                if (MenuProvider.Champion.Laneclear.UseQ)
                                     if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Laneclear.IfMana))
-                                    {
-                                        if (minioncount >= 4)
+                                        if (_q.IsReadyPerfectly())
                                         {
-                                            PickACard(Cards.Red);
+                                            var farm = _q.GetLineFarmLocation(MinionManager.GetMinions(_q.Range));
+
+                                            if (farm.MinionsHit >= 5)
+                                            {
+                                                _q.Cast(farm.Position);
+                                            }
                                         }
-                                        else if (minioncount >= 1)
+
+                                if (MenuProvider.Champion.Laneclear.UseW)
+                                    if (_w.IsReadyPerfectly())
+                                    {
+                                        var minioncount =
+                                            MinionManager.GetMinions(float.MaxValue)
+                                                .Where(x => Orbwalking.InAutoAttackRange(x))
+                                                .Count();
+
+                                        if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Laneclear.IfMana))
                                         {
-                                            PickACard(Cards.Blue);
+                                            if (minioncount >= 4)
+                                            {
+                                                PickACard(Cards.Red);
+                                            }
+                                            else if (minioncount >= 1)
+                                            {
+                                                PickACard(Cards.Blue);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (minioncount >= 1)
+                                            {
+                                                PickACard(Cards.Blue);
+                                            }
                                         }
                                     }
-                                    else
-                                    {
-                                        if (minioncount >= 1)
-                                        {
-                                            PickACard(Cards.Blue);
-                                        }
-                                    }
-                                }
 
-                            //Jungleclear
-                            if (MenuProvider.Champion.Jungleclear.UseQ)
-                                if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
-                                    if (_q.IsReadyPerfectly())
-                                    {
-                                        var target =
-                                            MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
-                                                MinionOrderTypes.MaxHealth).FirstOrDefault();
-                                        if (target != null)
-                                            _q.Cast(target);
-                                    }
-
-                            if (MenuProvider.Champion.Jungleclear.UseW)
-                                if (_w.IsReadyPerfectly())
-                                {
-                                    var minionCount =
-                                        MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
-                                            MinionOrderTypes.MaxHealth).Count();
-
+                                //Jungleclear
+                                if (MenuProvider.Champion.Jungleclear.UseQ)
                                     if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
-                                    {
-                                        if (minionCount >= 3)
+                                        if (_q.IsReadyPerfectly())
                                         {
-                                            PickACard(Cards.Red);
+                                            var target =
+                                                MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
+                                                    MinionOrderTypes.MaxHealth).FirstOrDefault();
+                                            if (target != null)
+                                                _q.Cast(target);
+                                        }
+
+                                if (MenuProvider.Champion.Jungleclear.UseW)
+                                    if (_w.IsReadyPerfectly())
+                                    {
+                                        var minionCount =
+                                            MinionManager.GetMinions(600, MinionTypes.All, MinionTeam.Neutral,
+                                                MinionOrderTypes.MaxHealth).Count();
+
+                                        if (ObjectManager.Player.IsManaPercentOkay(MenuProvider.Champion.Jungleclear.IfMana))
+                                        {
+                                            if (minionCount >= 3)
+                                            {
+                                                PickACard(Cards.Red);
+                                            }
+                                            else if (minionCount >= 1)
+                                            {
+                                                PickACard(Cards.Blue);
+                                            }
                                         }
                                         else if (minionCount >= 1)
                                         {
                                             PickACard(Cards.Blue);
                                         }
                                     }
-                                    else if (minionCount >= 1)
-                                    {
-                                        PickACard(Cards.Blue);
-                                    }
-                                }
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
 
@@ -287,10 +287,10 @@ namespace SharpShooter.Plugins
             {
                 if (_cardiNeed != Cards.None)
                 {
-                    if (_w.Instance.Name.ToLowerInvariant() == _cardiNeed.ToString().ToLowerInvariant() + "cardlock")
+                    if (_w.Instance.Name.ToLowerInvariant().Contains(_cardiNeed.ToString().ToLowerInvariant() + "cardlock"))
                     {
                         _cardiNeed = Cards.None;
-                        Utility.DelayAction.Add(100, () => _w.Cast());
+                        _w.Cast();
                     }
                 }
             }
@@ -321,7 +321,7 @@ namespace SharpShooter.Plugins
                 {
                     if (args.Slot == SpellSlot.W)
                     {
-                        if (args.SData.Name != "PickACard")
+                        if (args.SData.Name.ToLowerInvariant() != "pickacard")
                         {
                             _cardiNeed = Cards.None;
                         }
@@ -329,7 +329,7 @@ namespace SharpShooter.Plugins
 
                     if (args.Slot == SpellSlot.R)
                     {
-                        if (args.SData.Name == "gate")
+                        if (args.SData.Name.ToLowerInvariant() == "gate")
                         {
                             if (MenuProvider.Champion.Misc.GetBoolValue("Select Gold Card When Using Ultimate (gate)"))
                             {
@@ -440,7 +440,7 @@ namespace SharpShooter.Plugins
 
             if (!ObjectManager.Player.IsWindingUp)
             {
-                damage += (float) ObjectManager.Player.GetAutoAttackDamage(enemy, true);
+                damage += (float)ObjectManager.Player.GetAutoAttackDamage(enemy, true);
             }
 
             if (_q.IsReadyPerfectly())
@@ -468,7 +468,7 @@ namespace SharpShooter.Plugins
             {
                 if (_w.IsReadyPerfectly())
                 {
-                    if (_w.Instance.Name == "PickACard")
+                    if (_w.Instance.Name.ToLowerInvariant() == "pickacard")
                     {
                         _w.Cast();
                     }
