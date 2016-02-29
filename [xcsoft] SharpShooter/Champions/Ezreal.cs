@@ -2,6 +2,7 @@
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 using Color = System.Drawing.Color;
 
 namespace Sharpshooter.Champions
@@ -171,10 +172,9 @@ namespace Sharpshooter.Champions
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
             {
                 if (Q.CanCast(Target) && SharpShooter.Menu.Item("comboUseQ", true).GetValue<Boolean>())
-                    Q.Cast(Target);
-                else
-                if (W.CanCast(Target) && SharpShooter.Menu.Item("comboUseW", true).GetValue<Boolean>())
-                    W.Cast(Target);
+                    Q.SPredictionCast(Target as Obj_AI_Hero, Q.MinHitChance);
+                else if (W.CanCast(Target) && SharpShooter.Menu.Item("comboUseW", true).GetValue<Boolean>())
+                    W.SPredictionCast(Target as Obj_AI_Hero, W.MinHitChance);
             }
             
             if (Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed && SharpShooter.getManaPer > SharpShooter.Menu.Item("harassMana", true).GetValue<Slider>().Value)
@@ -218,7 +218,7 @@ namespace Sharpshooter.Champions
                 var Qtarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical, true);
 
                 if (Q.CanCast(Qtarget))
-                    Q.Cast(Qtarget);
+                    Q.SPredictionCast(Qtarget, Q.MinHitChance);
             }
 
             if (SharpShooter.Menu.Item("comboUseW", true).GetValue<Boolean>())
@@ -226,7 +226,7 @@ namespace Sharpshooter.Champions
                 var Wtarget = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Physical, true);
 
                 if (W.CanCast(Wtarget) )
-                    W.Cast(Wtarget);
+                    W.SPredictionCast(Wtarget, W.MinHitChance);
             }
 
             if (SharpShooter.Menu.Item("comboUseR", true).GetValue<Boolean>())
@@ -249,15 +249,15 @@ namespace Sharpshooter.Champions
                 var Qtarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical, true);
 
                 if (Q.CanCast(Qtarget))
-                    Q.Cast(Qtarget);
+                    Q.SPredictionCast(Qtarget, Q.MinHitChance);
             }
 
             if (SharpShooter.Menu.Item("harassUseW", true).GetValue<Boolean>())
             {
                 var Wtarget = TargetSelector.GetTarget(W.Range, TargetSelector.DamageType.Physical, true);
 
-                if (W.CanCast(Wtarget) )
-                    W.Cast(Wtarget);
+                if (W.CanCast(Wtarget))
+                    W.SPredictionCast(Wtarget, W.MinHitChance);
             }
         }
 

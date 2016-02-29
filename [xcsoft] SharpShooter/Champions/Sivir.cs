@@ -2,6 +2,7 @@
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 using Color = System.Drawing.Color;
 
 namespace Sharpshooter.Champions
@@ -157,8 +158,8 @@ namespace Sharpshooter.Champions
             {
                 var Qtarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Physical, true);
 
-                if (Q.CanCast(Qtarget) )
-                    Q.Cast(Qtarget);
+                if (Q.CanCast(Qtarget))
+                    Q.SPredictionCast(Qtarget, Q.MinHitChance);
             }
         }
 
