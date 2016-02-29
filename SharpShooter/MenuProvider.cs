@@ -2,6 +2,7 @@
 using System.Drawing;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 
 namespace SharpShooter
 {
@@ -35,6 +36,7 @@ namespace SharpShooter
 
                 Champion.AddOrbwalker();
                 Champion.AddTargetSelector();
+                SPrediction.Prediction.Initialize(MenuInstance);
             }
             else
             {

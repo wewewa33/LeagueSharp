@@ -2,6 +2,7 @@
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 using Color = System.Drawing.Color;
 
 namespace Sharpshooter.Champions
@@ -157,8 +158,8 @@ namespace Sharpshooter.Champions
             {
                 var Qtarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical, true);
 
-                if (Q.CanCast(Qtarget) )
-                    Q.Cast(Qtarget);
+                if (Q.CanCast(Qtarget))
+                    Q.SPredictionCast(Qtarget, Q.MinHitChance);
             }
 
             if (SharpShooter.Menu.Item("comboUseW", true).GetValue<Boolean>() && W.IsReady())
@@ -173,17 +174,26 @@ namespace Sharpshooter.Champions
             {
                 var Etarget = TargetSelector.GetTarget(Q.Range, TargetSelector.DamageType.Magical, true);
 
-                if (E.CanCast(Etarget) )
-                    E.Cast(Etarget);
+                if (E.CanCast(Etarget))
+                    E.SPredictionCast(Etarget, E.MinHitChance);
             }
 
             if (SharpShooter.Menu.Item("comboUseR", true).GetValue<Boolean>() && R.IsReady())
             {
                 var Rtarget = TargetSelector.GetTarget(GetRRange, TargetSelector.DamageType.Magical, true);
-                var Rpred = R.GetPrediction(Rtarget);
-
-                if (R.IsReady() && Rtarget.IsValidTarget(GetRRange) && Player.ServerPosition.Distance(Rpred.CastPosition, false) < GetRRange && Rpred.Hitchance >= HitChance.High)
-                    R.Cast(Rpred.CastPosition);
+                
+                if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                {
+                    var Rpred = R.GetSPrediction(Rtarget);
+                    if (R.IsReady() && Rtarget.IsValidTarget(GetRRange) && Player.ServerPosition.To2D().Distance(Rpred.CastPosition, false) < GetRRange && Rpred.HitChance >= HitChance.High)
+                        R.Cast(Rpred.CastPosition);
+                }
+                else
+                {
+                    var Rpred = R.GetPrediction(Rtarget);
+                    if (R.IsReady() && Rtarget.IsValidTarget(GetRRange) && Player.ServerPosition.Distance(Rpred.CastPosition, false) < GetRRange && Rpred.Hitchance >= HitChance.High)
+                        R.Cast(Rpred.CastPosition);
+                }
             }
         }
 

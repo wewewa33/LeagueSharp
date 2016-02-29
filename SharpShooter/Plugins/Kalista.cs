@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
@@ -115,7 +116,7 @@ namespace SharpShooter.Plugins
                                             var target = TargetSelector.GetTargetNoCollision(_q);
                                             if (target != null)
                                                 if (ObjectManager.Player.Mana - _qManaCost[_q.Level] >= 40)
-                                                    _q.Cast(target);
+                                                    _q.SPredictionCast(target, _q.MinHitChance);
                                                 else
                                                 {
                                                     var killableTarget =
@@ -152,7 +153,7 @@ namespace SharpShooter.Plugins
                                             {
                                                 var target = TargetSelector.GetTargetNoCollision(_q);
                                                 if (target != null)
-                                                    _q.Cast(target);
+                                                    _q.SPredictionCast(target, _q.MinHitChance);
                                             }
 
                             break;
