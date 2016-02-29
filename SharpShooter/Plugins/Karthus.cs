@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 
 namespace SharpShooter.Plugins
 {
@@ -81,7 +82,12 @@ namespace SharpShooter.Plugins
                                 {
                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                     if (target != null)
-                                        _q.Cast(target, false, true);
+                                    {
+                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                                            _q.SPredictionCast(target, HitChance.High);
+                                        else
+                                            _q.Cast(target, false, true);
+                                    }
                                 }
 
                             if (MenuProvider.Champion.Combo.UseW)
@@ -104,7 +110,12 @@ namespace SharpShooter.Plugins
                                 {
                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                     if (target != null)
-                                        _q.Cast(target, false, true);
+                                    {
+                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                                            _q.SPredictionCast(target, HitChance.High);
+                                        else
+                                            _q.Cast(target, false, true);
+                                    }
                                 }
 
                             if (MenuProvider.Champion.Harass.UseW)

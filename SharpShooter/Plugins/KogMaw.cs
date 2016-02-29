@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 
 namespace SharpShooter.Plugins
 {
@@ -87,7 +87,7 @@ namespace SharpShooter.Plugins
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_q);
                                         if (target != null)
-                                            _q.Cast(target);
+                                            _q.SPredictionCast(target, _q.MinHitChance);
                                     }
 
                             if (MenuProvider.Champion.Combo.UseW)
@@ -117,7 +117,7 @@ namespace SharpShooter.Plugins
                                         {
                                             var target = TargetSelector.GetTarget(_r.Range, _r.DamageType);
                                             if (target != null)
-                                                _r.Cast(target, false, true);
+                                                _r.SPredictionCast(target, _r.MinHitChance);
                                         }
                                         else
                                         {
@@ -128,7 +128,7 @@ namespace SharpShooter.Plugins
                                                             TargetSelector.DamageType.Magical, _r.Range) &&
                                                         _r.GetPrediction(x).Hitchance >= _r.MinHitChance);
                                             if (killableTarget != null)
-                                                _r.Cast(killableTarget, false, true);
+                                                _r.SPredictionCast(killableTarget, _r.MinHitChance);
                                         }
                                     }
 
@@ -142,7 +142,7 @@ namespace SharpShooter.Plugins
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_q);
                                         if (target != null)
-                                            _q.Cast(target);
+                                            _q.SPredictionCast(target, _q.MinHitChance);
                                     }
 
                             if (MenuProvider.Champion.Harass.UseE)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 using SharpDX;
 using Collision = LeagueSharp.Common.Collision;
 using Color = System.Drawing.Color;
@@ -21,7 +22,7 @@ namespace SharpShooter.Plugins
         public Jinx()
         {
             _q = new Spell(SpellSlot.Q);
-            _w = new Spell(SpellSlot.W, 1450f, TargetSelector.DamageType.Physical) {MinHitChance = HitChance.VeryHigh};
+            _w = new Spell(SpellSlot.W, 1450f, TargetSelector.DamageType.Physical) {MinHitChance = HitChance.High};
             _e = new Spell(SpellSlot.E, 900f, TargetSelector.DamageType.Physical) {MinHitChance = HitChance.High};
             _r = new Spell(SpellSlot.R, 2500f, TargetSelector.DamageType.Physical) {MinHitChance = HitChance.High};
 
@@ -134,7 +135,7 @@ namespace SharpShooter.Plugins
                                     {
                                         var target = TargetSelector.GetTargetNoCollision(_w);
                                         if (target.IsValidTarget(_w.Range))
-                                            _w.Cast(target);
+                                            _w.SPredictionCast(target, _w.MinHitChance);
                                     }
 
                             if (MenuProvider.Champion.Combo.UseE)
@@ -222,7 +223,7 @@ namespace SharpShooter.Plugins
                                         {
                                             var target = TargetSelector.GetTargetNoCollision(_w);
                                             if (target.IsValidTarget(_w.Range))
-                                                _w.Cast(target);
+                                                _w.SPredictionCast(target, _w.MinHitChance);
                                         }
 
                             break;

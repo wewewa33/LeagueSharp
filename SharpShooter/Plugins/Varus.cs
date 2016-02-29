@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
+using SPrediction;
 
 namespace SharpShooter.Plugins
 {
@@ -119,7 +120,12 @@ namespace SharpShooter.Plugins
                                                         MenuProvider.Champion.Combo.GetSliderValue("Q Min Charge").Value)
                                                     {
                                                         if (target.IsValidTarget(_q.Range))
-                                                            _q.Cast(target, false, true);
+                                                        {
+                                                            if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                                                                _q.SPredictionCast(target, HitChance.High);
+                                                            else
+                                                                _q.Cast(target, false, true);
+                                                        }
                                                     }
                                                 }
                                                 else if (MenuProvider.Champion.Combo.UseE ? !_e.IsReadyPerfectly() : true)
@@ -132,7 +138,12 @@ namespace SharpShooter.Plugins
                                                 {
                                                     var target1 = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                                     if (target1 != null)
-                                                        _q.Cast(target1, false, true);
+                                                    {
+                                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                                                            _q.SPredictionCast(target1, HitChance.High);
+                                                        else
+                                                            _q.Cast(target1, false, true);
+                                                    }
                                                 }
                                         }
                                         else
@@ -144,7 +155,12 @@ namespace SharpShooter.Plugins
                                                 {
                                                     var target = TargetSelector.GetTarget(_q.Range, _q.DamageType);
                                                     if (target != null)
-                                                        _q.Cast(target, false, true);
+                                                    {
+                                                        if (ConfigMenu.SelectedPrediction.SelectedIndex == 0)
+                                                            _q.SPredictionCast(target, HitChance.High);
+                                                        else
+                                                            _q.Cast(target, false, true);
+                                                    }
                                                 }
                                             }
                                             else if (TargetSelector.GetTarget(_q.ChargedMaxRange, _q.DamageType) != null)
