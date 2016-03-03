@@ -69,7 +69,7 @@
       <HintPath>C:\Program Files (x86)\LeagueSharp\System\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SPrediction">
-      <HintPath>..\..\..\..\Downloads\LeagueSharp\System\SPrediction.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\LeagueSharp\System\SPrediction.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

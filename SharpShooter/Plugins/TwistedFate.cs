@@ -78,7 +78,7 @@ namespace SharpShooter.Plugins
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Twisted Fate</font> Loaded.");
         }
 
-        private bool Picking => _w.IsReadyPerfectly() && _w.Instance.Name != "PickACard";
+        private bool Picking => _w.IsReadyPerfectly() && _w.Instance.Name.ToLowerInvariant() != "pickacard";
 
         private void Game_OnUpdate(EventArgs args)
         {
@@ -294,6 +294,8 @@ namespace SharpShooter.Plugins
                     }
                 }
             }
+
+            Console.WriteLine("(" + _w.Instance.Name.ToLowerInvariant() + ")");
         }
 
         private void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
