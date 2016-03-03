@@ -9,10 +9,11 @@ namespace SharpShooter.Plugins
     public class TwistedFate
     {
         private Cards _cardiNeed = Cards.None;
+        private int LastWSent = 0;
         private readonly SpellSlot _flash;
         private readonly Spell _q;
         private readonly Spell _w;
-        private Spell _e;
+        private readonly Spell _e;
         private readonly Spell _r;
 
         public TwistedFate()
@@ -78,7 +79,7 @@ namespace SharpShooter.Plugins
                 "<font color = \"#00D8FF\"><b>SharpShooter Reworked:</b></font> <font color = \"#FF007F\">Twisted Fate</font> Loaded.");
         }
 
-        private bool Picking => _w.IsReadyPerfectly() && _w.Instance.Name.ToLowerInvariant() != "pickacard";
+        private bool Picking => _w.IsReadyPerfectly() && !_w.Instance.Name.Equals("pickacard", StringComparison.OrdinalIgnoreCase);
 
         private void Game_OnUpdate(EventArgs args)
         {
@@ -285,17 +286,15 @@ namespace SharpShooter.Plugins
 
             if (Picking)
             {
-                if (_cardiNeed != Cards.None)
+                if (_cardiNeed != Cards.None && _w.IsReadyPerfectly())
                 {
-                    if (_w.Instance.Name.ToLowerInvariant().Contains(_cardiNeed.ToString().ToLowerInvariant() + "cardlock"))
+                    if (_w.Instance.Name.Equals(_cardiNeed.ToString() + "cardlock", StringComparison.OrdinalIgnoreCase))
                     {
                         _cardiNeed = Cards.None;
-                        _w.Cast();
+                        Utility.DelayAction.Add(250, () => _w.Cast());
                     }
                 }
             }
-
-            Console.WriteLine("(" + _w.Instance.Name.ToLowerInvariant() + ")");
         }
 
         private void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
@@ -323,7 +322,7 @@ namespace SharpShooter.Plugins
                 {
                     if (args.Slot == SpellSlot.W)
                     {
-                        if (args.SData.Name.ToLowerInvariant() != "pickacard")
+                        if (!args.SData.Name.Equals("pickacard", StringComparison.OrdinalIgnoreCase))
                         {
                             _cardiNeed = Cards.None;
                         }
@@ -331,7 +330,7 @@ namespace SharpShooter.Plugins
 
                     if (args.Slot == SpellSlot.R)
                     {
-                        if (args.SData.Name.ToLowerInvariant() == "gate")
+                        if (args.SData.Name.Equals("gate", StringComparison.OrdinalIgnoreCase))
                         {
                             if (MenuProvider.Champion.Misc.GetBoolValue("Select Gold Card When Using Ultimate (gate)"))
                             {
@@ -466,12 +465,13 @@ namespace SharpShooter.Plugins
         {
             _cardiNeed = card;
 
-            if (!Picking)
+            if (!Picking && Utils.TickCount - LastWSent > 200)
             {
-                if (_w.IsReadyPerfectly())
+                if (_w.Instance.Name.Equals("pickacard", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (_w.Instance.Name.ToLowerInvariant() == "pickacard")
+                    if (_w.IsReadyPerfectly())
                     {
+                        LastWSent = Utils.TickCount;
                         _w.Cast();
                     }
                 }
