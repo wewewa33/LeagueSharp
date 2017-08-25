@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BoLConfig>
+  <Scripts Enabled="" Disabled="">
+    <Vars />
+  </Scripts>
+  <CScripts Enabled="Big Fat Jinx.lua,Evadeee.lua,SidasAutoCarryReborn.lua.txt,Activator.lua,PrinceView.lua," />
+  <Settings path="C:\H4 FI-TTG\lol-BolStudio" autoInject="true" minimapHack="false" xtraAwareness="false" speech="false" bsAvoidDisabled="true" bOverlayDisable="false" level="2" skipWelcome="False" zoomHack="false" version="Latest" />
+  <SkinHack enabled="false" skinID="0" />
+</BoLConfig>
